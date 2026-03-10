@@ -4,7 +4,6 @@ const state = {
     taskList: [],
   };
   
-  // DOM Operations
   const taskModal = document.querySelector(".task__modal__body");
   const taskContents = document.querySelector(".task__contents");
   
@@ -61,7 +60,6 @@ const state = {
     </div>
   `;
   
-  // Modal Body on >> Clk of Open Task
   const htmlModalContent = ({ id, title, description, url }) => {
     const date = new Date(parseInt(id));
     return `
@@ -82,7 +80,6 @@ const state = {
     `;
   };
   
-  // where we convert json > str (i.e., for local storage)
   const updateLocalStorage = () => {
     localStorage.setItem(
       "task",
@@ -102,9 +99,7 @@ const state = {
     });
   };
   
-  // when we update or when we edit ..we need to save
   const handleSubmit = (event) => {
-    // console.log("event triggerd");
     const id = `${Date.now()}`;
     const input = {
       url: document.getElementById("imageUrl").value,
@@ -116,7 +111,6 @@ const state = {
       return alert("Please fill all the necessary fiels :-)");
     }
   
-    // taskContents.innerAdjacentHTML(
     taskContents.insertAdjacentHTML(
       "beforeend",
       htmlTaskContent({ ...input, id })
@@ -126,7 +120,6 @@ const state = {
     updateLocalStorage();
   };
   
-  //open task
   const openTask = (e) => {
     if (!e) e = window.event;
   
