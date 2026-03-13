@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>JS Build Project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasky - Task Management App</title>
 
     <!-- Importing css file -->
 
@@ -48,7 +50,7 @@
                   aria-describedby="imageDesc"
                   placeholder="https://xyz.com/image.png" />
                 <div id="imageDesc" class="form-text">
-                  Its a optional filed for you...
+                  It's an optional field.
                 </div>
               </div>
 
@@ -167,7 +169,7 @@
             type="submit"
             data-bs-toggle="modal"
             data-bs-target="#addNewModal">
-            <i class="fa-light fa-plus mr-4"></i>
+            <i class="fa-solid fa-plus"></i>
             Add New Item
           </button>
         </div>
@@ -185,12 +187,10 @@
                 type="search"
                 class="form-control"
                 placeholder="Search Your Task Here.."
-                aria-label="Search Task"
-                aria-describedby="addon-wrapping"
-                oninput="searchTask.apply(this, arguments)" />
-              <span class="input-group-text"
-                id="addon-wrapping">
-                <i class="fas fa-search"></i>
+                oninput="searchTask(event)"
+                aria-label="Search Task">
+              <span class="input-group-text" id="addon-wrapping">
+                <i class="fas fa-search search-icon"></i>
               </span>
             </div>
           </div>
@@ -207,16 +207,6 @@
 
     <script src="./index.js"></script>
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-      crossorigin="anonymous"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-      integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-      crossorigin="anonymous"></script>
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

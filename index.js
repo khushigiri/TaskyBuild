@@ -14,16 +14,16 @@ const state = {
         <div class='card-header d-flex justify-content-end 
         task__card__header'>
             <button type='button' 
-            class='btn btn-outline-primary mr-2' 
+            class='btn btn-outline-primary me-2' 
             name=${id} 
             onclick="editTask.apply(this, arguments)">
-                <i class='fas fa-pencil-alt name=${id}'></i>
+                <i class='fas fa-pencil-alt' name=${id}></i>
             </button>
              <button type='button' 
-             class='btn btn-outline-danger mr-2' 
+             class='btn btn-outline-danger' 
              name=${id} 
              onclick="deleteTask.apply(this, arguments)">
-                <i class='fas fa-trash-alt name=${id}' ></i>
+                <i class='fas fa-trash-alt' name=${id} ></i>
             </button>
         </div>
         <div class='card-body'>
@@ -88,16 +88,18 @@ const state = {
       })
     );
   };
-  
+
   const loadInitialData = () => {
-    const localStorageCopy = JSON.parse(localStorage.task);
-  
-    if (localStorageCopy) state.taskList = localStorageCopy.tasks;
-  
-    state.taskList.map((cardDate) => {
-      taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardDate));
-    });
-  };
+  const localStorageCopy = JSON.parse(localStorage.getItem("task"));
+
+  if (!localStorageCopy) return;
+
+  state.taskList = localStorageCopy.tasks;
+
+  state.taskList.forEach((cardData) => {
+  taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardData));
+});
+};
   
   const handleSubmit = (event) => {
     const id = `${Date.now()}`;
@@ -108,7 +110,7 @@ const state = {
       description: document.getElementById("taskDescription").value,
     };
     if (input.title === "" || input.type === "" || input.description === "") {
-      return alert("Please fill all the necessary fiels :-)");
+      return alert("Please fill all the necessary fields");
     }
   
     taskContents.insertAdjacentHTML(
@@ -133,7 +135,8 @@ const state = {
   
     const targetId = e.target.getAttribute("name");
     const type = e.target.tagName;
-    const removeTask = state.taskList.filter(({ id }) => id !== targetId);
+
+    state.taskList = state.taskList.filter(({ id }) => id !== targetId);
     updateLocalStorage();
   
     if (type === "BUTTON") {
@@ -151,7 +154,7 @@ const state = {
   const editTask = (e) => {
     if (!e) e = window.event;
   
-    const targetId = e.target.id;
+    const targetId = e.target.getAttribute("name");
     const type = e.target.tagName;
   
     let parentNode;
@@ -185,7 +188,7 @@ const state = {
   const saveEdit = (e) => {
     if (!e) e = window.event;
   
-    const targetId = e.target.id;
+    const targetId = e.target.getAttribute("name");
     const parentNode = e.target.parentNode.parentNode;
   
     const taskTitle = parentNode.childNodes[3].childNodes[3];
@@ -226,17 +229,18 @@ const state = {
   
   // search
   const searchTask = (e) => {
-    if (!e) e = window.event;
-  
-    while (taskContents.firstChild) {
-      taskContents.removeChild(taskContents.firstChild);
-    }
-    const resultData = state.taskList.filter(({ title }) =>
-      title.toLowerCase().includes(e.target.value.toLowerCase())
+  const searchValue = e.target.value.toLowerCase();
+
+  taskContents.innerHTML = "";
+
+  const filteredTasks = state.taskList.filter((task) =>
+    task.title.toLowerCase().includes(searchValue)
+  );
+
+  filteredTasks.forEach((task) => {
+    taskContents.insertAdjacentHTML(
+      "beforeend",
+      htmlTaskContent(task)
     );
-  
-    resultData.map(
-      (cardData) =>
-        taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardData))
-    );
-  };
+  });
+};
